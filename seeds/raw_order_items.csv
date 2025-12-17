@@ -1,0 +1,4 @@
+order_item_id,order_id,product_id,quantity,unit_price_cents
+9001,5001,101,1,89900
+9002,5001,103,2,19900
+9003,5002,102,1,49900

@@ -1,0 +1,4 @@
+product_id,product_name,category,price_cents,is_active
+101,Wireless Mouse,Electronics,89900,true
+102,Cotton T-Shirt,Apparel,49900,true
+103,Notebook A5,Stationery,19900,true

@@ -1,0 +1,4 @@
+order_id,customer_id,order_ts,status
+5001,1,2025-02-10 10:12:00,completed
+5002,2,2025-02-12 18:40:00,completed
+5003,1,2025-02-15 09:05:00,cancelled
