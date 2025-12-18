@@ -2,6 +2,7 @@
 
 models:
   - name: fct_orders
+    description: "Fact table at order grain. Includes revenue for completed orders."
     columns:
       - name: order_id
         tests: [not_null, unique]
@@ -12,12 +13,32 @@ models:
                 to: ref("dim_customers")
                 field: customer_id
 
+  - name: fct_order_items
+    description: "Fact table at order-item grain (one row per item line)."
+    columns:
+      - name: order_item_id
+        tests: [not_null, unique]
+      - name: order_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref("fct_orders")
+                field: order_id
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref("dim_products")
+                field: product_id
+
   - name: dim_customers
+    description: "Customer dimension enriched with completed orders, LTV, first/last order."
     columns:
       - name: customer_id
         tests: [not_null, unique]
 
   - name: dim_products
+    description: "Product dimension."
     columns:
       - name: product_id
         tests: [not_null, unique]

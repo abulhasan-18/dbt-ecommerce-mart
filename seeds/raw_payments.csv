@@ -1,0 +1,3 @@
+payment_id,order_id,paid_ts,amount_cents,method,status
+7001,5001,2025-02-10 10:15:00,129700,upi,paid
+7002,5002,2025-02-12 18:42:00,49900,card,paid

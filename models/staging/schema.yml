@@ -2,47 +2,85 @@
 
 models:
   - name: stg_customers
+    description: "Cleaned customers from raw seeds (types, trimming, normalized email)."
     columns:
       - name: customer_id
+        description: "Primary key for customers."
         tests: [not_null, unique]
 
   - name: stg_products
+    description: "Cleaned products from raw seeds."
     columns:
       - name: product_id
+        description: "Primary key for products."
         tests: [not_null, unique]
       - name: is_active
+        description: "Whether the product is active."
         tests:
           - accepted_values:
-              values: [true, false]
+              arguments:
+                values: [true, false]
 
   - name: stg_orders
+    description: "Cleaned orders from raw seeds."
     columns:
       - name: order_id
+        description: "Primary key for orders."
         tests: [not_null, unique]
       - name: customer_id
+        description: "FK to customers."
         tests:
           - not_null
           - relationships:
-              to: ref('stg_customers')
-              field: customer_id
+              arguments:
+                to: ref("stg_customers")
+                field: customer_id
       - name: status
+        description: "Order status."
         tests:
           - accepted_values:
-              values: ['completed', 'cancelled']
+              arguments:
+                values: ["completed", "cancelled"]
 
   - name: stg_order_items
+    description: "Cleaned order items from raw seeds."
     columns:
       - name: order_item_id
+        description: "Primary key for order items."
         tests: [not_null, unique]
       - name: order_id
+        description: "FK to orders."
         tests:
           - not_null
           - relationships:
-              to: ref('stg_orders')
-              field: order_id
+              arguments:
+                to: ref("stg_orders")
+                field: order_id
       - name: product_id
+        description: "FK to products."
         tests:
           - not_null
           - relationships:
-              to: ref('stg_products')
-              field: product_id
+              arguments:
+                to: ref("stg_products")
+                field: product_id
+
+  - name: stg_payments
+    description: "Cleaned payments from raw seeds."
+    columns:
+      - name: payment_id
+        description: "Primary key for payments."
+        tests: [not_null, unique]
+      - name: order_id
+        description: "FK to orders."
+        tests:
+          - relationships:
+              arguments:
+                to: ref("stg_orders")
+                field: order_id
+      - name: status
+        description: "Payment status."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["paid"]

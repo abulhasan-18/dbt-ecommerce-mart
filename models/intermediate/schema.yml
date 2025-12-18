@@ -1,0 +1,14 @@
+﻿version: 2
+
+models:
+  - name: int_order_revenue
+    description: "Order-level revenue calculated from order items for completed orders."
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: int_customer_order_stats
+    description: "Customer-level order stats (completed orders, LTV, first/last order date)."
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
